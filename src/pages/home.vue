@@ -9,6 +9,9 @@ import List from '@/components/Notes/List.vue'
 
 export default {
   components: { Form, List },
+  props: {
+    tag: null
+  },
   data() {
     return {
       note: {
@@ -47,10 +50,10 @@ export default {
       }
     },
     // * submit note
-    handleSubmit(title) {
+    handleSubmit(title, tag) {
       const note = {
         title: title,
-        tags: []
+        tags: [tag]
       }
       this.notes.push(note)
     },

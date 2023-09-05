@@ -20,18 +20,20 @@ export default {
     return {
       value: '',
       tags: ['home', 'work', 'travel'],
-      isActive: null
+      isActive: null,
+      tag: null
     }
   },
   methods: {
     onSubmit() {
-      this.$emit('onSubmit', this.value)
+      this.$emit('onSubmit', this.value, this.tag)
       this.value = ''
       this.isActive = null
     },
     handleTagClick(tag, index) {
       console.log(tag, index)
       this.isActive = index
+      this.tag = tag
     }
   }
 }
