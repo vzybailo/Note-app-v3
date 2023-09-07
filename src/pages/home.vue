@@ -1,11 +1,13 @@
 <template>
   <Form @onSubmit="handleSubmit" />
-  <List @onRemove="handleRemove" :items="notes" />
+  <List @onRemove="handleRemove" :items="getNotes" />
 </template>
 
 <script>
 import Form from '@/components/Notes/Form.vue'
 import List from '@/components/Notes/List.vue'
+
+import { mapGetters } from 'vuex';
 
 export default {
   components: { Form, List },
@@ -17,24 +19,19 @@ export default {
       note: {
         title: '',
         tags: []
-      },
-      notes: [
-        {
-          title: 'Learn Vue 3',
-          tags: ['work']
-        },
-        {
-          title: 'Finish course',
-          tags: ['work', 'home']
-        }
-      ]
+      }
     }
   },
-  mounted() {
-    this.getNotes()
+  // mounted() {
+  //   this.getNotes()
+  // },
+  computed: {
+    ...mapGetters([
+      'getNotes'
+    ]),
   },
   watch: {
-    notes: {
+    getNotes: {
       handler(updatedList) {
         localStorage.setItem('notes', JSON.stringify(updatedList))
       },
@@ -55,7 +52,7 @@ export default {
         title: title,
         tags: [tag]
       }
-      this.notes.push(note)
+      this.getNotes.push(note)
     },
     // * remove note
     handleRemove(index) {

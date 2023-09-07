@@ -5,7 +5,7 @@
       v-for="(item, index) in items"
       :key="index"
       @click="$emit('onItemClick', item, index)"
-      :class="{ 
+      :class="{
         isPreview: isPreview,
         isActive: isActive === index
        }"

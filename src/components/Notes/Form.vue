@@ -14,15 +14,21 @@
 
 <script>
 import TagsList from '@/components/UI/TagsList.vue'
+import { mapState } from 'vuex';
+
 export default {
   components: { TagsList },
   data() {
     return {
       value: '',
-      tags: ['home', 'work', 'travel'],
       isActive: null,
       tag: null
     }
+  },
+  computed: {
+    ...mapState([
+      'tags'
+    ])
   },
   methods: {
     onSubmit() {
@@ -31,7 +37,6 @@ export default {
       this.isActive = null
     },
     handleTagClick(tag, index) {
-      console.log(tag, index)
       this.isActive = index
       this.tag = tag
     }
