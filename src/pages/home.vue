@@ -7,56 +7,41 @@
 import Form from '@/components/Notes/Form.vue'
 import List from '@/components/Notes/List.vue'
 
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: { Form, List },
-  props: {
-    tag: null
+  mounted() {
+    this.getNotes
   },
-  data() {
-    return {
-      note: {
-        title: '',
-        tags: []
-      }
-    }
-  },
-  // mounted() {
-  //   this.getNotes()
-  // },
   computed: {
-    ...mapGetters([
-      'getNotes'
-    ]),
+    ...mapState(['tag', 'note', 'title', 'notes']),
+    ...mapGetters(['getNotes']),
   },
   watch: {
     getNotes: {
       handler(updatedList) {
-        localStorage.setItem('notes', JSON.stringify(updatedList))
+        localStorage.setItem('getNotes', JSON.stringify(updatedList))
       },
       deep: true
     }
   },
   methods: {
-    // * get / set notes
-    getNotes() {
-      const localNotes = localStorage.getItem('notes')
+    ...mapMutations(['setNotes']),
+    notes() {
+      const localNotes = localStorage.getItem('getNotes')
       if (localNotes) {
-        this.notes = JSON.parse(localNotes)
+        this.getNotes = JSON.parse(localNotes)
       }
     },
-    // * submit note
     handleSubmit(title, tag) {
-      const note = {
+      this.setNotes({
         title: title,
         tags: [tag]
-      }
-      this.getNotes.push(note)
+      })
     },
-    // * remove note
     handleRemove(index) {
-      this.notes.splice(index, 1)
+      this.getNotes.splice(index, 1)
     }
   }
 }

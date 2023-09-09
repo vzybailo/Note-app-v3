@@ -2,9 +2,9 @@
   <div class="note-form__wrapper">
     <form class="note-form" @submit.prevent="onSubmit">
       <textarea required v-model="value" placeholder="Type ur note" />
-      <TagsList 
-        @onItemClick="handleTagClick" 
-        :items="tags" 
+      <TagsList
+        @onItemClick="handleTagClick"
+        :items="tags"
         :isActive = isActive
       />
       <button class="btn btnPrimary" type="submit">Add new note</button>
